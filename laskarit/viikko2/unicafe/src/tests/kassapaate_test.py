@@ -72,3 +72,9 @@ class TestKassapaate(unittest.TestCase):
         self.kassapaate.lataa_rahaa_kortille(self.kortti, 200)
         self.assertEqual(self.kortti.saldo_euroina(), 7)
         self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1002)
+    
+    def test_yritetaan_tallettaa_negatiivinen_summa(self):
+        tapahtuma = self.kassapaate.lataa_rahaa_kortille(self.kortti, -1)
+        self.assertEqual(self.kortti.saldo_euroina(), 5)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000)
+        self.assertEqual(tapahtuma, None)

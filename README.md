@@ -1,3 +1,6 @@
 # Ohjelmistotekniikka, harjoitustyö
 Aion tehdä _huutopussi_-korttipelistä **digi**version.
-[laskarit](/laskarit)
+
+- [Laskarit](/laskarit)
+- [Työaikakirjanpito](/dokumentaatio/tuntikirjanpito.md)
+- [Vaatimusmäärittely](/dokumentaatio/vaatimusmaarittely.md)

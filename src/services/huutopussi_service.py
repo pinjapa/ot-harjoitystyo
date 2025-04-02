@@ -17,9 +17,12 @@ class HuutopussiService: #sovelluslogiikka
             for j in ranks:
                 self.pack.append((i,j))
 
-    def deal_cards(self):
+    def deal_cards(self): #jakaa kortit
         random.shuffle(self.pack)
         self.hand1 = self.pack[:13]
         self.hand2 = self.pack[13:26]
         self.out_of_game = self.pack[26:32]
         self.bid_cards = self.pack[32:36]
+
+    def bid_phase(self, bid): #tallentaa korkeimman huudon tietokantaan
+        pass

@@ -4,3 +4,9 @@
 
 - Lisätty HuutopussiService-luokka
 - Testattu, että korttipakan luonti ja korttien jako toimii
+
+## Viikko 4
+
+- Pelin huutokierros toimii
+- Huutoa voi korottaa
+- Kortit toimivat nyt nappuloina

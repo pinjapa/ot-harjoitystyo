@@ -8,7 +8,7 @@ Teen _huutopussi_-korttipelistä **digi**version.
 
 ## Asennus ohjeet
 
-1. Asenna riippuvuudet komennolla:
+1. Pelin riippuvuudet asennetaan komennolla:
 
 ```bash
 poetry install
@@ -24,7 +24,7 @@ poetry run invoke start
 
 ### Ohjelman suorittaminen
 
-Ohjelman pystyy suorittamaan komennolla:
+Ohjelman voi suorittaa komennolla:
 
 ```bash
 poetry run invoke start
@@ -50,7 +50,7 @@ Raportti generoituu _htmlcov_-hakemistoon.
 
 ### Pylint
 
-Tiedoston [.pylintrc](./.pylintrc) määrittelemät tarkistukset voi suorittaa komennolla:
+Tiedoston [.pylintrc](./.pylintrc) ehdottamat tarkistukset koodiin voi suorittaa komennolla:
 
 ```bash
 poetry run invoke lint

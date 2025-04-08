@@ -8,7 +8,7 @@ class TestHuutopussiService(unittest.TestCase):
         self.game.deal_cards()
 
     def test_create_pack_works(self):
-        
+
         self.assertEqual(len(self.game.pack), 36)
 
     def test_dealing_cards_works(self):

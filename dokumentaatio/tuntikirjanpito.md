@@ -8,4 +8,5 @@
 | 1.4. | 3 | Testikattavuusraportti, invoke |
 | 2.4. | 3 | Huuto ja korotus toimii |
 | 3.4. | 3 | Korttien muuttaminen nappuloiksi |
-| summa | 14 |  |
+| 8.4. | 2 | pylint lisäys, koodin siistiminen, pakkauskaavio |
+| summa | 16 |  |

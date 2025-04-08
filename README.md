@@ -1,8 +1,9 @@
 # Ohjelmistotekniikka, harjoitustyö
-Aion tehdä _huutopussi_-korttipelistä **digi**version.
+Teen _huutopussi_-korttipelistä **digi**version.
 
 - [Työaikakirjanpito](/dokumentaatio/tuntikirjanpito.md)
 - [Vaatimusmäärittely](/dokumentaatio/vaatimusmaarittely.md)
+- [Ohjelman alustava rakenne](/dokumentaatio/arkkitehtuuri.md)
 - [Changelog](/dokumentaatio/changelog.md)
 
 ## Asennus ohjeet

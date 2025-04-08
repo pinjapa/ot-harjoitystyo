@@ -14,20 +14,15 @@ Sovelluksella voi pelata huutopussin kaksinpeliversiota, jossa pelaajilla on 13 
 
 Peliä pystyy pelaamaan 
 
-- Korttien jako toimii 
-- Huutovaihe toimii 
+- Korttien jako toimii - tehty
+- Huutovaihe toimii -tehty
+- Korttien pelaaminen toimii
 - Pisteenlasku toimii 
 
-### Lisää toiminnalisuuksia 
+### Jatkokehitysideoita 
 
 - Pelaajat eivät näe toistensa kortteja
   - Pelivuoron vaihdossa pelaajat eivät näe toistensa kortteja
 - Pelin pistetaulukko 
 - Kortteja ei pysty pelata sääntöjen vastaisesti 
-
- 
-
-## Jatkokehitysideoita 
-
-- Kolmin tai nelinpeli 
-- Peliä pystyy pelaamaan kahdella eri koneella samaan aikaan 
+- Kolmin tai nelinpeli

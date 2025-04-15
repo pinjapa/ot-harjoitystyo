@@ -5,6 +5,7 @@ Teen _huutopussi_-korttipelistä **digi**version.
 - [Vaatimusmäärittely](/dokumentaatio/vaatimusmaarittely.md)
 - [Ohjelman alustava rakenne](/dokumentaatio/arkkitehtuuri.md)
 - [Changelog](/dokumentaatio/changelog.md)
+- [Release 1 viikko 5](https://github.com/pinjapa/ot-harjoitystyo/releases/tag/viikko5)
 
 ## Asennus ohjeet
 

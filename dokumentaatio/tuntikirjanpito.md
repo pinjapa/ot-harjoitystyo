@@ -9,4 +9,5 @@
 | 2.4. | 3 | Huuto ja korotus toimii |
 | 3.4. | 3 | Korttien muuttaminen nappuloiksi |
 | 8.4. | 2 | pylint lisäys, koodin siistiminen, pakkauskaavio |
-| summa | 16 |  |
+| 15.4. | 0,5 | Github-release, README.md päivitys |
+| summa | 16,5 |  |

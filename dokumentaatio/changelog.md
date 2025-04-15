@@ -10,3 +10,7 @@
 - Pelin huutokierros toimii
 - Huutoa voi korottaa
 - Kortit toimivat nyt nappuloina
+
+## Viikko 5
+
+- Ei edistystä toiminnallisuudessa

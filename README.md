@@ -1,5 +1,5 @@
 # Ohjelmistotekniikka, harjoitustyö
-Teen _huutopussi_-korttipelistä **digi**version.
+Teen _huutopussi_-korttipelistä **digi**version, kahdelle pelaajalle. Huutopussi on nk. tikkipeli, jossa pelaajat aluksi tarjoavat eli "huutavat" pisteistä ,jotka he luulevat korteillansa saavan. Tarjousvaiheen jälkeen pelataan kierros, jonka jälkeen lasketaan pisteet, ja tarkistetaan saiko tarjousvaiheen voittanut huutonsa verran. HUOM. Oletuksena on, että pelaaja entuudestaan tuntee pelin. Lisää pelin kulkusta ja säännöistä löytyy nettihaulla.
 
 - [Työaikakirjanpito](/dokumentaatio/tuntikirjanpito.md)
 - [Vaatimusmäärittely](/dokumentaatio/vaatimusmaarittely.md)

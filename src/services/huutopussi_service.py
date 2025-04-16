@@ -23,8 +23,11 @@ class HuutopussiService:  # sovelluslogiikka
         self.out_of_game = self.pack[26:32]
         self.bid_cards = self.pack[32:36]
 
-    def bid_save(self, bid):  # tallentaa korkeimman huudon tietokantaan
-        pass
+    def bid_save(self, bid, bid_round):  # tallentaa korkeimman huudon tietokantaan
+        if bid_round == 1:
+            print(f"Tallennetaan huuto: {bid}")
+        if bid_round == 2:
+            print(f"Tallennetaan korotus: {bid}")
 
     def bid_win(self, hand): # lisää tarjouskierroksen voittajalle kortit
         for card in self.bid_cards:

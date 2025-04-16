@@ -23,9 +23,12 @@ class BidRaise:
         self.bid_button()
 
     def bid_button(self):
-        text = "Huuda"
+        text = ""
+        if self.round <= 1:
+            text = "Huuda"
+
         if self.round == 2:
-            text = "Korota"
+            text = "Korota" 
 
         bid_button = ttk.Button(
             master=self._root,
@@ -36,17 +39,24 @@ class BidRaise:
 
     def _bid_button_click(self):
         self._bid_value = self._entry.get()
-        if self.round == 1:
+        if self.round <= 1:
             bid_label = ttk.Label(
                 master=self._root, text=f"Huuto: {self._bid_value}")
             bid_label.grid(row=1, column=0)
-
-        else:
+        
+        if self.round == 2:
             bid_label = ttk.Label(
                 master=self._root, text=f"Korotus: {self._bid_value}")
             bid_label.grid(row=2, column=0)
+        
+        else:
+            bid_label = ttk.Label(
+                master=self._root, text=f"Lukitse: {self._bid_value}")
+            bid_label.grid(row=2, column=0)
+
 
     def _ready_button_click(self):
-        self._game.bid_save(self._bid_value)
-        self.round = 2
+        self._game.bid_save(self._bid_value, self.round)
+        self.round += 1
+        print(f"Kierros: {self.round}")
         self.bid_button()

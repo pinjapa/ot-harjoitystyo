@@ -7,16 +7,20 @@ class BidRaise:
         self._root = root
         self._game = game
         self._entry = None
-        self.round = 1
+        self.round = 0
+        self.bid_ready = False
 
     def create(self):
-        self._entry = ttk.Entry(master=self._root)
-        self._entry.grid(row=1, column=1)
+
+        self._bid_entry = ttk.Entry(master=self._root)
+        self._bid_entry.grid(row=1, column=1)
+        self._bid_win = ttk.Entry(master=self._root)
+        self._bid_win.grid(row=2, column=3)
 
         bid_ready_button = ttk.Button(
             master=self._root,
             text="Lukitse",
-            command=self._ready_button_click
+            command=self._lock_button_click
         )
         bid_ready_button.grid(row=2, column=2)
 
@@ -38,25 +42,24 @@ class BidRaise:
         bid_button.grid(row=2, column=1)
 
     def _bid_button_click(self):
-        self._bid_value = self._entry.get()
+        self._bid_value = self._bid_entry.get()
         if self.round <= 1:
             bid_label = ttk.Label(
                 master=self._root, text=f"Huuto: {self._bid_value}")
             bid_label.grid(row=1, column=0)
-        
+
         if self.round == 2:
             bid_label = ttk.Label(
                 master=self._root, text=f"Korotus: {self._bid_value}")
             bid_label.grid(row=2, column=0)
-        
-        else:
-            bid_label = ttk.Label(
-                master=self._root, text=f"Lukitse: {self._bid_value}")
-            bid_label.grid(row=2, column=0)
 
-
-    def _ready_button_click(self):
-        self._game.bid_save(self._bid_value, self.round)
+    def _lock_button_click(self):
         self.round += 1
+        self.bid_winner = self._bid_win.get()
+        self._game.bid_win(self.bid_winner)  #kumman pelaajan käteen lisätään kortit
+        #self.bid_ready = True
+        print(f"Huudon voitti pelaaja {self.bid_winner}")
+        self._game.bid_save(self._bid_value, self.round) # tallentaa
+        
         print(f"Kierros: {self.round}")
         self.bid_button()

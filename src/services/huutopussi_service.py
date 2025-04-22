@@ -8,6 +8,7 @@ class HuutopussiService:  # sovelluslogiikka
         self.hand2 = []
         self.out_of_game = []  # pirunpakka
         self.bid_cards = []
+        self.played = []
 
     def create_pack(self):
         ranks = [6, 7, 8, 9, "J", "Q", "K", 10, "A"]
@@ -30,5 +31,19 @@ class HuutopussiService:  # sovelluslogiikka
             print(f"Tallennetaan korotus: {bid}")
 
     def bid_win(self, hand): # lisää tarjouskierroksen voittajalle kortit
-        for card in self.bid_cards:
-            hand.append(card)
+        if hand == "1":
+            for card in self.bid_cards:
+                self.hand1.append(card)
+        elif hand == "2":
+            for card in self.bid_cards:
+                self.hand2.append(card)
+        else:
+            print("Virhe: Ilmoita pelaaja: 1 tai 2")
+        
+
+    def play_card(self, card):
+        if len(self.played) >= 2:
+            self.played = []
+        self.played.append(card)
+        
+        return self.played

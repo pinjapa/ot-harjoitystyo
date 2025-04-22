@@ -10,4 +10,6 @@
 | 3.4. | 3 | Korttien muuttaminen nappuloiksi |
 | 8.4. | 2 | pylint lisäys, koodin siistiminen, pakkauskaavio |
 | 15.4. | 0,5 | Github-release, README.md päivitys |
-| summa | 16,5 |  |
+| 16.4. | 2 | Pelattu tikki näkyy |
+| 22.4. | 2 | Huudonpakka lisätään toisen pelaajan käteen |
+| summa | 20,5 |  |

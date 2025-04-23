@@ -11,7 +11,7 @@ class UI:
         
 
     def start(self):
-        self._root.geometry("1500x300")
+        self._root.geometry("1800x300")
         self._game = HuutopussiService()
 
         heading_label = ttk.Label(
@@ -31,18 +31,23 @@ class UI:
 
         for card in self._game.hand1:
             self.button = Button(self._root, text=card, width=5)
-            self.button['command'] = lambda binst=self.button, c=card: self.click(
-                binst, c)
+            self.button['command'] = lambda binst=self.button, c=card, hand=1: self.click(
+                binst, c, hand)
             self.button.grid(row=3, column=column_1)
             column_1 += 1
 
         column_1 = 4
         for card in self._game.hand2:
             self.button = Button(self._root, text=card, width=5)
-            self.button['command'] = lambda binst=self.button, c=card: self.click(
-                binst, c)
+            self.button['command'] = lambda binst=self.button, c=card, hand=2: self.click(
+                binst, c, hand)
             self.button.grid(row=4, column=column_1)
             column_1 += 1
+    
+    def click(self, binst, card, hand):
+        self.played_cards(card)
+        self._game.tricks(card, hand)
+        binst.destroy()
     
     def refresh_cards(self):
         refresh_button = ttk.Button(
@@ -52,14 +57,19 @@ class UI:
         )
         refresh_button.grid(row=4, column=2)
     
-    
     def refresh_click(self):
-        self.show_cards()
-    
-    
-    def click(self, binst, card):
-        self.played_cards(card)
-        binst.destroy()
+        column = 17
+        row = 3
+        if self._game.bid_win_hand == 2:
+            row = 4
+
+        for card in self._game.bid_cards:
+            self.button = Button(self._root, text=card, width=5)
+            self.button['command'] = lambda binst=self.button, c=card, hand=self._game.bid_win_hand: self.click(
+                binst, c, hand)
+            self.button.grid(row=row, column=column)
+            column += 1
+        self.trumps()
     
     def played_cards(self, card):
         played_label = ttk.Label(
@@ -70,3 +80,15 @@ class UI:
           master=self._root, text=self._game.play_card(card))
         cards_label.grid(row=6,column=2)
         
+    def trumps(self):
+        column = 4
+        for suit in self._game.suits:
+            trump_button = Button(self._root, text=suit, width=5)
+            trump_button['command'] = lambda binst=trump_button: self.click(
+                binst)
+            trump_button.grid(row=7, column=column)
+            column += 1
+    
+    def trump_click(self, binst):
+        self.show_cards()
+        binst.destroy()

@@ -11,5 +11,6 @@
 | 8.4. | 2 | pylint lisäys, koodin siistiminen, pakkauskaavio |
 | 15.4. | 0,5 | Github-release, README.md päivitys |
 | 16.4. | 2 | Pelattu tikki näkyy |
-| 22.4. | 2 | Huudonpakka lisätään toisen pelaajan käteen |
-| summa | 20,5 |  |
+| 22.4. | 2 | Huutopakka lisätään toisen pelaajan käteen |
+| 23.4. | 4 | "pussit" pisteenlaskulle, korttien vertailu |
+| summa | 24,5 |  |

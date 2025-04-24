@@ -48,7 +48,7 @@ class BidRaise:
                 master=self._root, text=f"Huuto: {self._bid_value}")
             bid_label.grid(row=1, column=0)
 
-        if self.round == 2:
+        elif self.round == 2:
             bid_label = ttk.Label(
                 master=self._root, text=f"Korotus: {self._bid_value}")
             bid_label.grid(row=2, column=0)
@@ -57,7 +57,6 @@ class BidRaise:
         self.round += 1
         self.bid_winner = self._bid_win.get()
         self._game.bid_win(self.bid_winner)  #kumman pelaajan käteen lisätään kortit
-        #self.bid_ready = True
         print(f"Huudon voitti pelaaja {self.bid_winner}")
         self._game.bid_save(self._bid_value, self.round) # tallentaa
         

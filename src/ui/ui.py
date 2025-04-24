@@ -45,8 +45,8 @@ class UI:
             column_1 += 1
     
     def click(self, binst, card, hand):
-        self.played_cards(card)
-        self._game.tricks(card, hand)
+        self.played_cards(card, hand)
+        #self._game.tricks(card, hand)
         binst.destroy()
     
     def refresh_cards(self):
@@ -60,35 +60,35 @@ class UI:
     def refresh_click(self):
         column = 17
         row = 3
-        if self._game.bid_win_hand == 2:
+        if self._game._bid_win_hand == 2:
             row = 4
 
         for card in self._game.bid_cards:
             self.button = Button(self._root, text=card, width=5)
-            self.button['command'] = lambda binst=self.button, c=card, hand=self._game.bid_win_hand: self.click(
+            self.button['command'] = lambda binst=self.button, c=card, hand=self._game._bid_win_hand: self.click(
                 binst, c, hand)
             self.button.grid(row=row, column=column)
             column += 1
         self.trumps()
     
-    def played_cards(self, card):
+    def played_cards(self, card, hand):
         played_label = ttk.Label(
             master=self._root, text="Tikki")
         played_label.grid(row=5, column=2)
 
         cards_label = ttk.Label(
-          master=self._root, text=self._game.play_card(card))
+          master=self._root, text=self._game.play_card(card, hand))
         cards_label.grid(row=6,column=2)
         
     def trumps(self):
         column = 4
         for suit in self._game.suits:
             trump_button = Button(self._root, text=suit, width=5)
-            trump_button['command'] = lambda binst=trump_button: self.click(
-                binst)
+            trump_button['command'] =lambda binst=trump_button, suit=suit: self.trump_click(
+                binst, suit)
             trump_button.grid(row=7, column=column)
             column += 1
     
-    def trump_click(self, binst):
-        self.show_cards()
+    def trump_click(self, binst, suit):
+        print(suit)
         binst.destroy()

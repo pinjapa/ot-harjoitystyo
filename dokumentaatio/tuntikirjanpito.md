@@ -15,4 +15,4 @@
 | 23.4. | 4 | "pussit" pisteenlaskulle, korttien vertailu |
 | 24.4. | 1 | Korttien vertaiilu valtilla |
 |  | 1 | Korttie lisääminen huudon voittajalle |
-| summa | 24,5 |  |
+| summa | 26,5 |  |

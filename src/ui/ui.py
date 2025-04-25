@@ -90,5 +90,5 @@ class UI:
             column += 1
     
     def trump_click(self, binst, suit):
-        print(suit)
+        self._game.trump = suit
         binst.destroy()

@@ -27,6 +27,7 @@ class HuutopussiService:
         self.hand1 = self.pack[:13]
         self.hand2 = self.pack[13:26]
         self.bid_cards = self.pack[32:36]
+        #print(f"käsi 1 pituus {len(self.hand1)}")
 
     def bid_save(self, bid, bid_round):  # tallentaa korkeimman huudon
         if bid_round == 1:
@@ -34,21 +35,24 @@ class HuutopussiService:
         if bid_round == 2:
             print(f"Tallennetaan korotus: {bid}")
 
-    def bid_win(self, hand): # lisää tarjouskierroksen voittajalle kortit
-        if hand == "1":
-            self._bid_win_hand = 1
-            for card in self.bid_cards:
-                self.hand1.append(card)
+    def bid_win(self, hand, round): # lisää tarjouskierroksen voittajalle kortit
+        if round == 2:
+            if hand == "1":
+                self._bid_win_hand = 1
+                for card in self.bid_cards:
+                    self.hand1.append(card)
+                print(f"käsi 1 pituus {len(self.hand1)}")
 
-        elif hand == "2":
-            self._bid_win_hand = 2
-            for card in self.bid_cards:
-                self.hand2.append(card)
-        else:
-            print("Virhe: Ilmoita pelaaja: 1 tai 2")
+            elif hand == "2":
+                self._bid_win_hand = 2
+                for card in self.bid_cards:
+                    self.hand2.append(card)
+            else:
+                print("Virhe: Ilmoita pelaaja: 1 tai 2")
 
     def play_card(self, card, hand):
         if len(self.hand1) > 13:
+            print(len(self.hand1))
             self.bag1.append(card)
             self.hand1.remove(card)
             return "Laita kortti pois ensin!"

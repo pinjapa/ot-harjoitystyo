@@ -7,7 +7,7 @@ class BidRaise:
         self._root = root
         self._game = game
         self._entry = None
-        self.round = 0
+        self.round = 1
         self.bid_ready = False
 
     def create(self):
@@ -56,7 +56,7 @@ class BidRaise:
     def _lock_button_click(self):
         self.round += 1
         self.bid_winner = self._bid_win.get()
-        self._game.bid_win(self.bid_winner)  #kumman pelaajan käteen lisätään kortit
+        self._game.bid_win(self.bid_winner, self.round)  #kumman pelaajan käteen lisätään kortit
         print(f"Huudon voitti pelaaja {self.bid_winner}")
         self._game.bid_save(self._bid_value, self.round) # tallentaa
         

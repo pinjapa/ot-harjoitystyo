@@ -13,6 +13,7 @@
 | 16.4. | 2 | Pelattu tikki näkyy |
 | 22.4. | 2 | Huutopakka lisätään toisen pelaajan käteen |
 | 23.4. | 4 | "pussit" pisteenlaskulle, korttien vertailu |
-| 24.4. | 1 | Korttien vertaiilu valtilla |
-|  | 1 | Korttie lisääminen huudon voittajalle |
-| summa | 26,5 |  |
+| 24.4. | 1 | Korttien vertailu valtilla |
+|  | 1 | Korttien lisääminen huudon voittajalle |
+| 25.4. | 2 | Bugien ja pylint virheiden korjailua |
+| summa | 28,5 |  |

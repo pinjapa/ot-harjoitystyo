@@ -14,3 +14,8 @@
 ## Viikko 5
 
 - Ei edistystä toiminnallisuudessa
+
+## Viikko 6
+
+- Korttien vertailu
+- Valtin tekeminen muttaa korttien vertailua

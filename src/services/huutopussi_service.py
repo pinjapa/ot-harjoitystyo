@@ -27,21 +27,19 @@ class HuutopussiService:
         self.hand1 = self.pack[:13]
         self.hand2 = self.pack[13:26]
         self.bid_cards = self.pack[32:36]
-        #print(f"käsi 1 pituus {len(self.hand1)}")
 
-    def bid_save(self, bid, bid_round):  # tallentaa korkeimman huudon
-        if bid_round == 1:
+    def bid_save(self, bid, lap):  # tallentaa korkeimman huudon
+        if lap == 1:
             print(f"Tallennetaan huuto: {bid}")
-        if bid_round == 2:
+        if lap == 2:
             print(f"Tallennetaan korotus: {bid}")
 
-    def bid_win(self, hand, round): # lisää tarjouskierroksen voittajalle kortit
-        if round == 2:
+    def bid_win(self, hand, lap): # lisää tarjouskierroksen voittajalle kortit
+        if lap == 2:
             if hand == "1":
                 self._bid_win_hand = 1
                 for card in self.bid_cards:
                     self.hand1.append(card)
-                print(f"käsi 1 pituus {len(self.hand1)}")
 
             elif hand == "2":
                 self._bid_win_hand = 2
@@ -52,7 +50,6 @@ class HuutopussiService:
 
     def play_card(self, card, hand):
         if len(self.hand1) > 13:
-            print(len(self.hand1))
             self.bag1.append(card)
             self.hand1.remove(card)
             return "Laita kortti pois ensin!"
@@ -65,14 +62,14 @@ class HuutopussiService:
         if len(self.played) == 2:
             if self.trump:
                 self.compare_trump(self.played[0], self.played[1])
-            self.compare(self.played[0], self.played[1])
+            self.compare_suits(self.played[0], self.played[1])
             self.played = []
 
         self.played.append((card, hand))
 
         return self.played
 
-    def compare(self, card1, card2):  # ei valttia
+    def compare_suits(self, card1, card2):  # ei valttia
         if card1[0][1] != card2[0][1]: #pelaajilla eri maata
             self.tricks(card1[1])
         else:
@@ -82,15 +79,13 @@ class HuutopussiService:
         if self.rank_order[card1[0][0]] > self.rank_order[card2[0][0]]:
             self.tricks(card1[1])
 
-        elif self.rank_order[card2[0][0]] > self.rank_order[card1[0][0]]:
+        if self.rank_order[card2[0][0]] > self.rank_order[card1[0][0]]:
             self.tricks(card2[1])
-        else:
-            print("Tänne ei pitäisi päästä")
 
     def compare_trump(self, card1, card2): # valtti olemassa
         if card1[0][1] != self.trump:
             if card2[0][1] != self.trump:
-                self.compare(card1, card2)
+                self.compare_suits(card1, card2)
 
         elif card1[0][1] == self.trump:
             if card2[0][1] != self.trump:

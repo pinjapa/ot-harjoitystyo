@@ -2,8 +2,17 @@ from tkinter import ttk
 
 
 class BidRaise:
+    """ Luokka, joka vastaa tarjouskierroksen
+    käyttöliittymän komponenttien toteutuksesta
+    """
 
     def __init__(self, root, game):
+        """ Konstruktori
+
+        Args:
+            root: Käyttöliittymän kehys juuri
+            game: HuutopussiService peli
+        """
         self._root = root
         self._game = game
         self._entry = None
@@ -11,7 +20,8 @@ class BidRaise:
         self.bid_ready = False
 
     def create(self):
-
+        """Luo peruselementit ikkunan vasempaan yläkulmaan.
+        """
         self._bid_entry = ttk.Entry(master=self._root)
         self._bid_entry.grid(row=1, column=1)
         self._bid_win = ttk.Entry(master=self._root)
@@ -27,6 +37,7 @@ class BidRaise:
         self.bid_button()
 
     def bid_button(self):
+        """Nappi, jolla päivitetään huuto tai korotus"""
         text = ""
         if self.round <= 1:
             text = "Huuda"
@@ -42,6 +53,10 @@ class BidRaise:
         bid_button.grid(row=2, column=1)
 
     def _bid_button_click(self):
+        """ Huutonapin painalluksesta vastaava metodi.
+        Ensimmäisellä kierroksella kyseessä on huuto.
+        Toisella kierroksella kysessä on korotus.
+        """
         self._bid_value = self._bid_entry.get()
         if self.round <= 1:
             bid_label = ttk.Label(
@@ -54,11 +69,14 @@ class BidRaise:
             bid_label.grid(row=2, column=0)
 
     def _lock_button_click(self):
+        """Lukitsee huudon/korotuksen.
+        Päivittää lopuksi huuto/kortus napin.
+        """
         self.round += 1
         self.bid_winner = self._bid_win.get()
-        self._game.bid_win(self.bid_winner, self.round)  #kumman pelaajan käteen lisätään kortit
-        print(f"Huudon voitti pelaaja {self.bid_winner}")
+        self._game.bid_win(self.bid_winner, self.round)  # kumman pelaajan käteen lisätään kortit
+        print(f"Huudon voitti pelaaja {self.bid_winner}") # tämä rivi poistetaan ennen lopullista palautusta
         self._game.bid_save(self._bid_value, self.round) # tallentaa
         
-        print(f"Kierros: {self.round}")
+        print(f"Kierros: {self.round}") # tämä rivi poistetaan ennen lopullista palautusta
         self.bid_button()

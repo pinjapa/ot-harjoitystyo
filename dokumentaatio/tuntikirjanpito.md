@@ -16,4 +16,6 @@
 | 24.4. | 1 | Korttien vertailu valtilla |
 |  | 1 | Korttien lisääminen huudon voittajalle |
 | 25.4. | 2 | Bugien ja pylint virheiden korjailua |
-| summa | 28,5 |  |
+| 29.4. | 1 | Testejä |
+|  | 1 | Docstring ja dokumentaatio |
+| summa | 30,5 |  |

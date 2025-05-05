@@ -24,15 +24,20 @@ class BidRaise:
         """
         self._bid_entry = ttk.Entry(master=self._root)
         self._bid_entry.grid(row=1, column=1)
-        self._bid_win = ttk.Entry(master=self._root)
-        self._bid_win.grid(row=2, column=3)
 
-        bid_ready_button = ttk.Button(
+        bid_win_label = ttk.Label(
+            master=self._root, text="Kumpi voitti huudon? Kirjoita 1 tai 2")
+        bid_win_label.grid(row=3, column=1)
+        
+        self._bid_win = ttk.Entry(master=self._root)
+        self._bid_win.grid(row=4, column=1)
+
+        lock_button = ttk.Button(
             master=self._root,
             text="Lukitse",
             command=self._lock_button_click
         )
-        bid_ready_button.grid(row=2, column=2)
+        lock_button.grid(row=5, column=1)
 
         self.bid_button()
 
@@ -75,8 +80,6 @@ class BidRaise:
         self.round += 1
         self.bid_winner = self._bid_win.get()
         self._game.bid_win(self.bid_winner, self.round)  # kumman pelaajan käteen lisätään kortit
-        print(f"Huudon voitti pelaaja {self.bid_winner}") # tämä rivi poistetaan ennen lopullista palautusta
         self._game.bid_save(self._bid_value, self.round) # tallentaa
         
-        print(f"Kierros: {self.round}") # tämä rivi poistetaan ennen lopullista palautusta
         self.bid_button()

@@ -26,6 +26,9 @@ class UI:
         self.refresh_cards()
 
     def show_cards(self):
+        player1_label = ttk.Label(
+            master=self._root, text="Pelaaja 1:")
+        player1_label.grid(row=2, column=4)
         column_1 = 4
 
         for card in self._game.hand1:
@@ -34,13 +37,17 @@ class UI:
                 binst, c, hand)
             self.button.grid(row=3, column=column_1)
             column_1 += 1
-
+        
+        player2_label = ttk.Label(
+            master=self._root, text="Pelaaja 2: ")
+        player2_label.grid(row=4, column=4)
         column_1 = 4
+
         for card in self._game.hand2:
             self.button = Button(self._root, text=card, width=5)
             self.button['command'] = lambda binst=self.button, c=card, hand=2: self.click(
                 binst, c, hand)
-            self.button.grid(row=4, column=column_1)
+            self.button.grid(row=5, column=column_1)
             column_1 += 1
     
     def click(self, binst, card, hand):
@@ -52,13 +59,13 @@ class UI:
         refresh_button = Button(self._root, text="Huuto valmis")
         refresh_button['command'] = lambda binst=refresh_button: self.refresh_click(
                 binst)
-        refresh_button.grid(row=4, column=2)
+        refresh_button.grid(row=6, column=1)
     
     def refresh_click(self, binst):
         column = 17
         row = 3
         if self._game._bid_win_hand == 2:
-            row = 4
+            row = 5
 
         for card in self._game.bid_cards:
             self.button = Button(self._root, text=card, width=5)
@@ -72,13 +79,16 @@ class UI:
     def played_cards(self, card, hand):
         played_label = ttk.Label(
             master=self._root, text="Tikki")
-        played_label.grid(row=5, column=2)
+        played_label.grid(row=8, column=2)
 
         cards_label = ttk.Label(
           master=self._root, text=self._game.play_card(card, hand))
-        cards_label.grid(row=6,column=2)
+        cards_label.grid(row=9,column=2)
         
     def trumps(self):
+        trump_label = ttk.Label(
+            master=self._root, text="Tee valtti:")
+        trump_label.grid(row=6, column=4)
         column = 4
         for suit in self._game.suits:
             trump_button = Button(self._root, text=suit, width=5)

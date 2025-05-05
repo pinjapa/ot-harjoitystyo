@@ -1,9 +1,9 @@
 import random
-#from services.count_service import CountService
+from services.count_service import CountService
 
 class HuutopussiService:
     """ Luokka, joka vastaa sovelluslogiikasta."""
-    
+
     def __init__(self):
         self.pack = []
         self.hand1 = []
@@ -16,6 +16,7 @@ class HuutopussiService:
         self.bag2 = []
         self.trump = False
         self.rank_order = {"6":1, "7":2, "8":3, "9":4, "J":5, "Q":6, "K":7, "10":8, "A":9}
+        self.count = CountService()
 
     def create_pack(self):
         """Alustaa korttipakan luomalla jokaisen pelissä olevan kortin
@@ -75,6 +76,7 @@ class HuutopussiService:
         Returns:
             Pelatut kortit, jos liikaa kortteja palauttaa "Laita kortti pois ensin!"
         """
+
         if len(self.hand1) > 13:
             self.bag1.append(card)
             self.hand1.remove(card)
@@ -85,13 +87,20 @@ class HuutopussiService:
             self.hand2.remove(card)
             return "Laita kortti pois ensin!"
 
+        if hand == 1:
+            self.hand1.remove(card)
+        else:
+            self.hand2.remove(card)
+
+        self.played.append((card, hand))
+
         if len(self.played) == 2:
             if self.trump:
                 self.compare_trump(self.played[0], self.played[1])
             self.compare_suits(self.played[0], self.played[1])
+            result = self.played
             self.played = []
-
-        self.played.append((card, hand))
+            return result
 
         return self.played
 
@@ -138,7 +147,7 @@ class HuutopussiService:
                 self.compare_value(card1, card2)
 
     def tricks(self, win):
-        """ Kumman pelaajan kortti on suurempi, sen "pussiin" listään kääntö.
+        """ Kumman pelaajan kortti on suurempi, sen "pussiin" lisätään kääntö.
 
         Args:
             win: Kumman pelaajan kortti on suurempi.
@@ -146,6 +155,11 @@ class HuutopussiService:
         if win == 1:
             self.bag1.append(self.played[0][0])
             self.bag1.append(self.played[1][0])
+
         if win == 2:
             self.bag2.append(self.played[0][0])
             self.bag2.append(self.played[1][0])
+
+        if len(self.bag1)+len(self.bag2) == 30:
+            self.count.last_trick(win)
+            self.count.count_cards(self.bag1, self.bag2)

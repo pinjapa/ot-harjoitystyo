@@ -2,7 +2,6 @@ from services.huutopussi_service import HuutopussiService
 from ui.bid_raise_ui import BidRaise
 from tkinter import ttk, Button
 
-
 class UI:
 
     def __init__(self, root):
@@ -50,14 +49,12 @@ class UI:
         binst.destroy()
     
     def refresh_cards(self):
-        refresh_button = ttk.Button(
-            master=self._root,
-            text="Huuto valmis",
-            command=self.refresh_click
-        )
+        refresh_button = Button(self._root, text="Huuto valmis")
+        refresh_button['command'] = lambda binst=refresh_button: self.refresh_click(
+                binst)
         refresh_button.grid(row=4, column=2)
     
-    def refresh_click(self):
+    def refresh_click(self, binst):
         column = 17
         row = 3
         if self._game._bid_win_hand == 2:
@@ -70,6 +67,7 @@ class UI:
             self.button.grid(row=row, column=column)
             column += 1
         self.trumps()
+        binst.destroy()
     
     def played_cards(self, card, hand):
         played_label = ttk.Label(

@@ -18,4 +18,6 @@
 | 25.4. | 2 | Bugien ja pylint virheiden korjailua |
 | 29.4. | 1 | Testejä |
 |  | 1 | Docstring ja dokumentaatio |
-| summa | 30,5 |  |
+| 5.5. | 2 | Pisteenlaskun toteutus |
+|  | 1,5 | Käyttöliittymän parantelu |
+| summa | 34 |  |

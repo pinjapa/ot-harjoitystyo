@@ -20,4 +20,6 @@
 |  | 1 | Docstring ja dokumentaatio |
 | 5.5. | 2 | Pisteenlaskun toteutus |
 |  | 1,5 | Käyttöliittymän parantelu |
-| summa | 34 |  |
+| 6.5. | 1 | Pelivuoro näkyviin |
+|  | 4 | "Maapakko" toteutus |
+| summa | 39 |  |

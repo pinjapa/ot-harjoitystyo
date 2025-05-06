@@ -17,6 +17,7 @@ class HuutopussiService:
         self.trump = False
         self.rank_order = {"6":1, "7":2, "8":3, "9":4, "J":5, "Q":6, "K":7, "10":8, "A":9}
         self.count = CountService()
+        self.turn = 1
 
     def create_pack(self):
         """Alustaa korttipakan luomalla jokaisen pelissä olevan kortin
@@ -51,6 +52,9 @@ class HuutopussiService:
         jos huuto valmis eli kierros 2.
 
         """
+        if hand != "1" or hand != "2":
+            print("Virhe: Ilmoita pelaaja: 1 tai 2") #exception tähän
+
         if lap == 2:
             if hand == "1":
                 self._bid_win_hand = 1
@@ -61,8 +65,6 @@ class HuutopussiService:
                 self._bid_win_hand = 2
                 for card in self.bid_cards:
                     self.hand2.append(card)
-            else:
-                print("Virhe: Ilmoita pelaaja: 1 tai 2")
 
     def play_card(self, card, hand):
         """Tarkistaa pelatun kortin.
@@ -86,23 +88,53 @@ class HuutopussiService:
             self.bag2.append(card)
             self.hand2.remove(card)
             return "Laita kortti pois ensin!"
-
-        if hand == 1:
-            self.hand1.remove(card)
-        else:
-            self.hand2.remove(card)
-
+        
         self.played.append((card, hand))
 
         if len(self.played) == 2:
+            card1 = self.played[0]
+            card2 = self.played[1]
             if self.trump:
-                self.compare_trump(self.played[0], self.played[1])
-            self.compare_suits(self.played[0], self.played[1])
-            result = self.played
-            self.played = []
-            return result
+                self.compare_trump(card1, card2)
+            self.compare_suits(card1, card2)
+            result = card1[0], card2[0]
+            
+                
+            if hand == 1:
+                self.hand1.remove(card)
+                self.hand2.remove(self.played[0][0])
+            else:
+                self.hand2.remove(card)
+                self.hand1.remove(self.played[0][0])
 
-        return self.played
+            self.played = []
+            
+            return result
+        
+
+    def check_rules(self, card2, hand):
+        
+        card1 = self.played[0][0]
+        print(card2[1], card1[1])
+        if card2[1] != card1[1]:
+            if hand == 2: #pelaaja1 laittanut toisen kortin
+                
+                for card in self.hand2: # olisiko toisella pelaajalla ollut samaa maata
+                    #print(card[1], card1[1])
+                    if card[1] == card1[1] and card != card2: #toisen pelaajan kädestä löydetty kortti ei ole sama kuin hän on juuri pelattu
+                        return False
+                return True
+
+            elif hand == 1: #pelaaja2 laittanut toisen kortin
+                print("menee")
+                for card in self.hand1: # olisiko toisella pelaajalla ollut samaa maata
+                    print(card[1], card1[1])
+                    if card[1] == card1[1] and card != card2: #toisen pelaajan kädestä löydetty kortti ei ole sama kuin hän on juuri pelattu
+                        return False
+                return True       
+        else:
+            return True
+
 
     def compare_suits(self, card1, card2):  # ei valttia
         """Vertailee, ovatko kortit samaa maata.
@@ -155,10 +187,12 @@ class HuutopussiService:
         if win == 1:
             self.bag1.append(self.played[0][0])
             self.bag1.append(self.played[1][0])
+            self.turn = 1
 
         if win == 2:
             self.bag2.append(self.played[0][0])
             self.bag2.append(self.played[1][0])
+            self.turn = 2
 
         if len(self.bag1)+len(self.bag2) == 30:
             self.count.last_trick(win)

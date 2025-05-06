@@ -1,6 +1,6 @@
 from services.huutopussi_service import HuutopussiService
 from ui.bid_raise_ui import BidRaise
-from tkinter import ttk, Button
+from tkinter import ttk, Button, N, CENTER
 
 class UI:
 
@@ -16,9 +16,11 @@ class UI:
         heading_label = ttk.Label(
             master=self._root, text="Huutopussi kaksinpeli")
         heading_label.grid(row=0, column=2)
+        heading_label.place(relx=0.5, rely=0.0, anchor=N)
 
         self.bid_raise_elements = BidRaise(self._root, self._game)
         self.bid_raise_elements.create()
+        self.turn_label()
         
         self._game.create_pack()
         self._game.deal_cards()
@@ -49,12 +51,51 @@ class UI:
                 binst, c, hand)
             self.button.grid(row=5, column=column_1)
             column_1 += 1
-    
+        
+        played_label = ttk.Label(
+            master=self._root, text="Tikki")
+        played_label.grid(row=8, column=2)
+        played_label.place(relx=0.5, rely=0.6, anchor=CENTER)
+
+        
+
+    def turn_label(self):
+        self.turn = ttk.Label(
+            master=self._root, text=f"Pelaajan {self._game.turn} vuoro")
+        self.turn.grid(row=5, column=2)
+        self.turn.place(relx=0.5, rely=0.5, anchor=CENTER)
+        
+
     def click(self, binst, card, hand):
-        self.played_cards(card, hand)
-        #self._game.tricks(card, hand)
-        binst.destroy()
+        text = self._game.played
+        if len(self._game.played) == 0:
+            self._game.play_card(card, hand)
+            binst.destroy()
+
+        elif len(self._game.played) == 1:
+            print("menee")
+            result = self._game.check_rules(card, hand)
+            if result == True:
+                text = self._game.play_card(card, hand)
+                binst.destroy()
+                print(result)
+            else:
+                print(result)
+
+
+        #result = self._game.play_card(card, hand)
+        
+        cards_label = ttk.Label(
+            master=self._root, text=text)
+        cards_label.grid(row=9,column=2)
+        cards_label.place(relx=0.5, rely=0.7, anchor=CENTER)
+        
+        self.turn.config(text=f"Pelaajan {self._game.turn} vuoro")
+        
+        
+            
     
+
     def refresh_cards(self):
         refresh_button = Button(self._root, text="Huuto valmis")
         refresh_button['command'] = lambda binst=refresh_button: self.refresh_click(
@@ -75,15 +116,6 @@ class UI:
             column += 1
         self.trumps()
         binst.destroy()
-    
-    def played_cards(self, card, hand):
-        played_label = ttk.Label(
-            master=self._root, text="Tikki")
-        played_label.grid(row=8, column=2)
-
-        cards_label = ttk.Label(
-          master=self._root, text=self._game.play_card(card, hand))
-        cards_label.grid(row=9,column=2)
         
     def trumps(self):
         trump_label = ttk.Label(

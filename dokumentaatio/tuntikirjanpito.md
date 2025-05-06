@@ -22,4 +22,5 @@
 |  | 1,5 | Käyttöliittymän parantelu |
 | 6.5. | 1 | Pelivuoro näkyviin |
 |  | 4 | "Maapakko" toteutus |
-| summa | 39 |  |
+|  | 2 | Pisteenlasku |
+| summa | 41 |  |

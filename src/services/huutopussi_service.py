@@ -22,6 +22,7 @@ class HuutopussiService:
         self.bid = None
         self.bid2 = None
         self.huutopussi_repository = huutopussi_repository
+        self.id = 2
 
     def create_pack(self):
         """Alustaa korttipakan luomalla jokaisen pelissä olevan kortin
@@ -52,7 +53,7 @@ class HuutopussiService:
             
         if lap == 3:
             self.bid2 = int(bid)
-            self.huutopussi_repository._add_bid(self.bid, self.bid2)
+            self.id = self.huutopussi_repository._add_bid(self.bid, self.bid2)
 
     def bid_win(self, hand, lap): # lisää tarjouskierroksen voittajalle kortit
         """Lisää tarjouksen voittajalle huutopakan kortit,
@@ -173,10 +174,10 @@ class HuutopussiService:
             card2: Toiseksi pelattu kortti, ja sen pelaaja
         """
         if card1[0][1] != self.trump:
-            if card2[0][1] != self.trump:
-                self.compare_suits(card1, card2)
+            #if card2[0][1] != self.trump:
+            self.compare_suits(card1, card2)
 
-        elif card1[0][1] == self.trump:
+        else:
             if card2[0][1] != self.trump:
                 self.tricks(card1[1])
             elif card2[0][1] == self.trump:
@@ -204,6 +205,8 @@ class HuutopussiService:
             self.count.last_trick(win)
             self.count.count_cards(self.bag1, self.bag2)
             self.check_bid()
+            self.huutopussi_repository._add_points(
+                self.count.game_points1, self.count.game_points2, self.id)
 
     def check_bid(self):
         if self._bid_win_hand == 1:

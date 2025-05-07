@@ -1,4 +1,4 @@
-from tkinter import ttk
+from tkinter import ttk, Button
 
 
 class BidRaise:
@@ -20,8 +20,8 @@ class BidRaise:
         self.bid_ready = False
 
     def create(self):
-        """Luo peruselementit ikkunan vasempaan yläkulmaan.
-        """
+        """Luo tarjouskierroksen elementit."""
+
         self._bid_entry = ttk.Entry(master=self._root)
         self._bid_entry.grid(row=1, column=1)
 
@@ -32,11 +32,9 @@ class BidRaise:
         self._bid_win = ttk.Entry(master=self._root)
         self._bid_win.grid(row=4, column=1)
 
-        lock_button = ttk.Button(
-            master=self._root,
-            text="Lukitse",
-            command=self._lock_button_click
-        )
+        lock_button = Button(self._root, text="Lukitse")
+        lock_button['command'] = lambda binst=lock_button: self._lock_button_click(
+                binst)
         lock_button.grid(row=5, column=1)
 
         self.bid_button()
@@ -73,7 +71,7 @@ class BidRaise:
                 master=self._root, text=f"Korotus: {self._bid_value}")
             bid_label.grid(row=2, column=0)
 
-    def _lock_button_click(self):
+    def _lock_button_click(self, binst):
         """Lukitsee huudon/korotuksen.
         Päivittää lopuksi huuto/kortus napin.
         """
@@ -83,3 +81,5 @@ class BidRaise:
         self._game.bid_save(self._bid_value, self.round) # tallentaa
         
         self.bid_button()
+        if self.round == 3:
+            binst.destroy()

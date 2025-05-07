@@ -11,8 +11,10 @@ class HuutopussiRepository:
 
         rows = cursor.fetchall()
         result = []
+        i = 0
         for row in rows:
-            result.append((rows[0][1], "/", rows[0][2], "|", rows[0][3], "|", rows[0][4]))
+            result.append((rows[i][1], "/", rows[i][2], "|", rows[i][3], "|", rows[i][4]))
+            i += 1
 
         return result
 
@@ -27,12 +29,21 @@ class HuutopussiRepository:
 
         self._connection.commit()
 
-    def _add_points(self, bid, points1, points2):
+        cursor = self._connection.cursor()
+
+        cursor.execute("SELECT max(id) FROM Game")
+
+        result = cursor.fetchone()
+        print(result[0])
+
+        return result[0]
+
+    def _add_points(self, points1, points2, id):
         cursor = self._connection.cursor()
 
         cursor.execute(
-            "INSERT INTO Game (bid, raise, player1, player2) values (?, ?) WHERE bid = ? ",
-            (points1, points2, bid)
+            "UPDATE Game SET player1 = ?, player2 = ? WHERE id = ?",
+            (points1, points2, id)
         )
 
         self._connection.commit()

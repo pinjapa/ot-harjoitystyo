@@ -11,7 +11,7 @@ def drop_tables(connection):
     cursor = connection.cursor()
 
     cursor.execute("""
-        drop table if exists game;
+        drop table if exists Game;
     """)
 
     connection.commit()
@@ -27,10 +27,12 @@ def create_tables(connection):
     cursor = connection.cursor()
 
     cursor.execute("""
-        CREATE TABLE game (
-            bid text primary key,
-            player1 integer,
-            player2 interger
+        CREATE TABLE Game (
+            id INTEGER PRIMARY KEY,
+            bid TEXT,
+            raise TEXT,
+            player1 INTEGER,
+            player2 INTEGER
         );
     """)
 

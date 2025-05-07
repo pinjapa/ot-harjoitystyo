@@ -1,5 +1,6 @@
 import random
 from services.count_service import CountService
+from repositories.huutopussi_repository import huutopussi_repository
 
 class HuutopussiService:
     """ Luokka, joka vastaa sovelluslogiikasta."""
@@ -19,6 +20,8 @@ class HuutopussiService:
         self.count = CountService()
         self.turn = 1
         self.bid = None
+        self.bid2 = None
+        self.huutopussi_repository = huutopussi_repository
 
     def create_pack(self):
         """Alustaa korttipakan luomalla jokaisen pelissä olevan kortin
@@ -43,11 +46,13 @@ class HuutopussiService:
             Ensimmäisellä kierroksella pelaajalle tallennetaan huuto
             Toisella kierroksella tallennetaan samalle pelaajalle korotus
         """
-        self.bid = int(bid)
+        
         if lap == 2:
-            print(f"Tallennetaan huuto: {bid}")
+            self.bid = int(bid)
+            
         if lap == 3:
-            print(f"Tallennetaan korotus: {bid}")
+            self.bid2 = int(bid)
+            self.huutopussi_repository._add_bid(self.bid, self.bid2)
 
     def bid_win(self, hand, lap): # lisää tarjouskierroksen voittajalle kortit
         """Lisää tarjouksen voittajalle huutopakan kortit,

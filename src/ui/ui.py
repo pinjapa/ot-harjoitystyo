@@ -1,6 +1,6 @@
 from services.huutopussi_service import HuutopussiService
 from ui.bid_raise_ui import BidRaise
-from tkinter import ttk, Button, N, CENTER
+from tkinter import ttk, Button, N, CENTER, NE
 
 class UI:
 
@@ -15,8 +15,19 @@ class UI:
 
         heading_label = ttk.Label(
             master=self._root, text="Huutopussi kaksinpeli")
-        heading_label.grid(row=0, column=2)
         heading_label.place(relx=0.5, rely=0.0, anchor=N)
+
+        game_state_label = ttk.Label(
+            master=self._root, text="Peli tilanne: ")
+        game_state_label.grid(row=3, column=20)
+        game_state_label.place(relx=0.8, rely=0.5, anchor=NE)
+
+        game_state_refresh_button = ttk.Button(
+            master=self._root,
+            text="Päivitä",
+            command=self._refresh_game_state_click
+        )
+        game_state_refresh_button.place(relx=0.9, rely=0.5, anchor=NE)
 
         self.bid_raise_elements = BidRaise(self._root, self._game)
         self.bid_raise_elements.create()
@@ -96,6 +107,16 @@ class UI:
         refresh_button.grid(row=6, column=1)
         self.turn.config(text=f"Pelaajan {self._game.turn} vuoro")
     
+    def _refresh_game_state_click(self):
+        all = self._game.huutopussi_repository._find_all()
+        pos = 0.6
+        for row in all:
+            state_update = ttk.Label(
+                master=self._root, text=row)
+            state_update.place(relx=0.9, rely=pos, anchor=NE)
+            pos += 0.1
+
+
     def refresh_click(self, binst):
         column = 17
         row = 3

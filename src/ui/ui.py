@@ -21,7 +21,7 @@ class UI:
         self.bid_raise_elements = BidRaise(self._root, self._game)
         self.bid_raise_elements.create()
         self.turn_label()
-        
+
         self._game.create_pack()
         self._game.deal_cards()
         self.show_cards()
@@ -57,30 +57,27 @@ class UI:
         played_label.grid(row=8, column=2)
         played_label.place(relx=0.5, rely=0.6, anchor=CENTER)
 
-        
-
     def turn_label(self):
         self.turn = ttk.Label(
             master=self._root, text=f"Pelaajan {self._game.turn} vuoro")
         self.turn.grid(row=5, column=2)
         self.turn.place(relx=0.5, rely=0.5, anchor=CENTER)
-        
 
     def click(self, binst, card, hand):
         text = self._game.played
+
         if len(self._game.played) == 0:
             self._game.play_card(card, hand)
             binst.destroy()
 
+        
+
         elif len(self._game.played) == 1:
-            print("menee")
-            result = self._game.check_rules(card, hand)
-            if result == True:
+            #print("menee")
+            correct_suit = self._game.check_rules(card, hand)
+            if correct_suit == True:
                 text = self._game.play_card(card, hand)
                 binst.destroy()
-                print(result)
-            else:
-                print(result)
 
 
         #result = self._game.play_card(card, hand)
@@ -91,16 +88,13 @@ class UI:
         cards_label.place(relx=0.5, rely=0.7, anchor=CENTER)
         
         self.turn.config(text=f"Pelaajan {self._game.turn} vuoro")
-        
-        
-            
-    
 
     def refresh_cards(self):
         refresh_button = Button(self._root, text="Huuto valmis")
         refresh_button['command'] = lambda binst=refresh_button: self.refresh_click(
                 binst)
         refresh_button.grid(row=6, column=1)
+        self.turn.config(text=f"Pelaajan {self._game.turn} vuoro")
     
     def refresh_click(self, binst):
         column = 17
@@ -131,4 +125,5 @@ class UI:
     
     def trump_click(self, binst, suit):
         self._game.trump = suit
+        self._game.count.trump_done(suit, self._game.turn)
         binst.destroy()

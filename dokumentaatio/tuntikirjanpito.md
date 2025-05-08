@@ -23,4 +23,8 @@
 | 6.5. | 1 | Pelivuoro näkyviin |
 |  | 4 | "Maapakko" toteutus |
 |  | 2 | Pisteenlasku |
-| summa | 41 |  |
+| 7.5. | 2 | Tietokanta |
+|  | 2 | Pelitilanne näkyviin |
+|  | 2 | CompareService-luokka |
+| 8.5. | |
+| summa | 47 |  |

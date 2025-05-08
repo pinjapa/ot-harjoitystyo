@@ -14,7 +14,7 @@ class CountService:
         for card in bag2:
             self.points2 += self.card_values[card[0]]
 
-        print(f"pisteitä yhteensä {self.points1+self.points2}")
+        #print(f"pisteitä yhteensä {self.points1+self.points2}")
 
     def last_trick(self, winner):
         if winner == 1:
@@ -47,5 +47,5 @@ class CountService:
         else:
             self.game_points2 += self.points2
 
-        print(self.game_points1)
-        print(self.game_points2)
+        #print(self.game_points1)
+        #print(self.game_points2)

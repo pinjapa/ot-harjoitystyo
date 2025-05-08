@@ -3,7 +3,7 @@ from database_connection import get_database_connection
 class HuutopussiRepository:
     def __init__(self, connection):
         self._connection = connection
-    
+
     def _find_all(self):
         cursor = self._connection.cursor()
 
@@ -11,15 +11,13 @@ class HuutopussiRepository:
 
         rows = cursor.fetchall()
         result = []
-        i = 0
         for row in rows:
-            result.append((rows[i][1], "/", rows[i][2], "|", rows[i][3], "|", rows[i][4]))
-            i += 1
+            result.append((row[1], "/", row[2], "|", row[3], "|", row[4]))
 
         return result
 
 
-    def _add_bid(self, bid, bid2):
+    def add_bid(self, bid, bid2):
         cursor = self._connection.cursor()
 
         cursor.execute(
@@ -34,16 +32,15 @@ class HuutopussiRepository:
         cursor.execute("SELECT max(id) FROM Game")
 
         result = cursor.fetchone()
-        print(result[0])
 
         return result[0]
 
-    def _add_points(self, points1, points2, id):
+    def add_points(self, points1, points2, id_row):
         cursor = self._connection.cursor()
 
         cursor.execute(
             "UPDATE Game SET player1 = ?, player2 = ? WHERE id = ?",
-            (points1, points2, id)
+            (points1, points2, id_row)
         )
 
         self._connection.commit()

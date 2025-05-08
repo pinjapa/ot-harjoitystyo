@@ -15,7 +15,20 @@ Teen _huutopussi_-korttipelistä **digi**version, kahdelle pelaajalle. Huutopuss
 poetry install
 ```
 
-3. Käynnistä sovellus komennolla:
+2. Luo tiedosto .env samaan kansioon kuin tämä projekti.
+
+    .env tiedostoon luo tietokannan nimi. Huom. nimen täytyy loppua .sqlite
+```bash
+ DATABASE_FILENAME=
+``` 
+
+3. Alusta sovelluksen tietokanta komennolla:
+
+ ```bash
+poetry run invoke build
+```
+
+4. Käynnistä sovellus komennolla:
 
 ```bash
 poetry run invoke start
@@ -23,9 +36,9 @@ poetry run invoke start
 
 ## Komentorivitoiminnot
 
-### Ohjelman suorittaminen
+### Pelin pelaaminen
 
-Ohjelman voi suorittaa komennolla:
+Pelin voi aloittaa komennolla:
 
 ```bash
 poetry run invoke start
@@ -41,7 +54,7 @@ poetry run invoke test
 
 ### Testikattavuus
 
-Testikattavuusraportin voi generoida komennolla:
+Testikattavuusraportti generoituu komennolla:
 
 ```bash
 poetry run invoke coverage-report
@@ -51,7 +64,7 @@ Raportti generoituu _htmlcov_-hakemistoon.
 
 ### Pylint
 
-Tiedoston [.pylintrc](./.pylintrc) ehdottamat tarkistukset koodiin voi suorittaa komennolla:
+Tiedoston [.pylintrc](./.pylintrc) laatuvaatimukset koodiin voi tarkistaa komennolla:
 
 ```bash
 poetry run invoke lint

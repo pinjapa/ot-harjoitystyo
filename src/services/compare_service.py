@@ -1,5 +1,6 @@
 
 class CompareService:
+    """Luokka, joka vastaa korttien vertailusta"""
 
     def __init__(self):
         self.hand1 = []
@@ -13,7 +14,6 @@ class CompareService:
 
 
     def start_compare(self, card, hand):
-        #print("menee start comapare")
         card1 = self.played[0]
         card2 = self.played[1]
         if self.trump:
@@ -29,24 +29,23 @@ class CompareService:
             self.hand2.remove(card)
             self.hand1.remove(self.played[0][0])
 
-        #self.played = []
-        if end[0] == True:
+        if end[0] is True:
             return (end[0], end[1])
 
         return result
 
-    def compare_suits(self, card1, card2):  # ei valttia
+    def compare_suits(self, card1, card2):
         """Vertailee, ovatko kortit samaa maata.
 
         Args:
             card1: Kahdesta kortista ensin pelattu, ja kumpi pelaaja
             card2: Toiseksi pelattu kortti, ja sen pelaaja
         """
-        if card1[0][1] != card2[0][1]: #pelaajilla eri maata
+        if card1[0][1] != card2[0][1]:
             return self.tricks(card1[1])
-        else:
-            return self.compare_value(card1, card2)
-    
+
+        return self.compare_value(card1, card2)
+
     def compare_trump(self, card1, card2):
         """ Vertailee kortteja, kun valtti on olemassa.
 
@@ -55,14 +54,12 @@ class CompareService:
             card2: Toiseksi pelattu kortti, ja sen pelaaja
         """
         if card1[0][1] != self.trump:
-            #if card2[0][1] != self.trump:
             return self.compare_suits(card1, card2)
 
-        else:
-            if card2[0][1] != self.trump:
-                return self.tricks(card1[1])
-            elif card2[0][1] == self.trump:
-                return self.compare_value(card1, card2)
+
+        if card2[0][1] != self.trump:
+            return self.tricks(card1[1])
+        return self.compare_value(card1, card2)
 
     def compare_value(self, card1, card2):
         """ Vertailee, kumpi korteista on suurempi.
@@ -74,8 +71,7 @@ class CompareService:
         if self.rank_order[card1[0][0]] > self.rank_order[card2[0][0]]:
             return self.tricks(card1[1])
 
-        elif self.rank_order[card2[0][0]] > self.rank_order[card1[0][0]]:
-            return self.tricks(card2[1])
+        return self.tricks(card2[1])
 
     def tricks(self, win):
         """ Kumman pelaajan kortti on suurempi, sen "pussiin" lisätään kääntö.
@@ -83,15 +79,13 @@ class CompareService:
         Args:
             win: Kumman pelaajan kortti on suurempi.
         """
-        #print("menee tricks")
-        
-        
+
         if win == 1:
             self.bag1.append(self.played[0][0])
             self.bag1.append(self.played[1][0])
             self.turn = 1
             if len(self.bag1)+len(self.bag2) == 30:
-                #print("Kaikki kortit on nyt pelattu")
+
                 return (True, win)
             return (False, None)
 
@@ -100,11 +94,9 @@ class CompareService:
             self.bag2.append(self.played[1][0])
             self.turn = 2
             if len(self.bag1)+len(self.bag2) == 30:
-                #print("Kaikki kortit on nyt pelattu")
+
                 return (True, win)
             return (False, None)
 
         return (False, None)
-
-    #def is_last_trick(self):
         

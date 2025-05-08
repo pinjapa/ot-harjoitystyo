@@ -3,6 +3,11 @@ from ui.bid_raise_ui import BidRaise
 from tkinter import ttk, Button, N, CENTER, NE
 
 class UI:
+    """Pelin käyttöliittymän logiikasta vastaava luokka
+    
+    Args:
+        root: Käyttöliittymän Framen juuri.
+    """
 
     def __init__(self, root):
         self._root = root
@@ -10,6 +15,8 @@ class UI:
         self._game = HuutopussiService()
 
     def start(self):
+        """Luo käyttöliittymän perus elementit"""
+        
         self._root.geometry("1800x300")
         heading_label = ttk.Label(
             master=self._root, text="Huutopussi kaksinpeli")
@@ -17,7 +24,6 @@ class UI:
 
         game_state_label = ttk.Label(
             master=self._root, text="Peli tilanne: ")
-        game_state_label.grid(row=3, column=20)
         game_state_label.place(relx=0.9, rely=0.2, anchor=NE)
 
         self.cards_label = ttk.Label(
@@ -36,11 +42,13 @@ class UI:
         self.turn_label()
 
         self._game.create_pack()
-        #self._game.deal_cards()
         self.show_cards()
         self.refresh_cards()
 
     def show_cards(self):
+        """Luo käyttöliittymään pelaajien kortit nappuloina.
+            Luo myös näihin liittyvät tekstit."""
+
         player1_label = ttk.Label(
             master=self._root, text="Pelaaja 1:")
         player1_label.grid(row=2, column=4)
@@ -71,18 +79,17 @@ class UI:
         played_label.place(relx=0.5, rely=0.6, anchor=CENTER)
 
     def turn_label(self):
+        """Näyttää kumman pelaajan vuoro on."""
         self.turn = ttk.Label(
             master=self._root, text=f"Pelaajan {self._game.compare.turn} vuoro")
         self.turn.grid(row=5, column=2)
         self.turn.place(relx=0.5, rely=0.5, anchor=CENTER)
 
     def click(self, binst, card, hand):
-        
 
         if len(self._game.played) == 0:
             
             self._game.play_card(card, hand)
-            #text = self._game.played[0][0]
             self.cards_label.config(text=self._game.played)
             binst.destroy()
 
@@ -92,7 +99,6 @@ class UI:
             correct_suit = self._game.check_rules(card, hand)
             if correct_suit == True:
                 result = self._game.play_card(card, hand)
-                print(result)
                 if result == "Peli loppui":
                     self.cards_label.config(text="Kierros loppui!")
                     self.new_game()
@@ -100,27 +106,20 @@ class UI:
                     self.cards_label.config(
                         text=f"{result[0][0]} {result[0][1]} | {result[1][0]} {result[1][1]}")
                 binst.destroy()
-
-
-        #result = self._game.play_card(card, hand)
-        
-        #cards_label = ttk.Label(
-            #master=self._root, text=text)
-        #cards_label.grid(row=9,column=2)
-        #cards_label.place(relx=0.5, rely=0.7, anchor=CENTER)
         
         self.turn.config(text=f"Pelaajan {self._game.compare.turn} vuoro")
 
     def refresh_cards(self):
+        """Nappi, joka päivittää kortit."""
         refresh_button = Button(self._root, text="Huuto valmis")
         refresh_button['command'] = lambda binst=refresh_button: self.refresh_click(
                 binst)
         refresh_button.grid(row=6, column=1)
-        self.turn.config(text=f"Pelaajan {self._game.compare.turn} vuoro")
+        
     
     def _refresh_game_state_click(self):
+        
         all = self._game.huutopussi_repository._find_all()
-        #print(all)
         pos = 0.3
         for row in all:
             state_update = ttk.Label(
@@ -130,6 +129,7 @@ class UI:
 
 
     def refresh_click(self, binst):
+        
         column = 17
         row = 3
         if self._game._bid_win_hand == 2:
@@ -145,6 +145,7 @@ class UI:
         binst.destroy()
         
     def trumps(self):
+        self.turn.config(text=f"Pelaajan {self._game.compare.turn} vuoro")
         trump_label = ttk.Label(
             master=self._root, text="Tee valtti:")
         trump_label.grid(row=6, column=4)

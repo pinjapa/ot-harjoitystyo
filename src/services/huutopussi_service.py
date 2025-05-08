@@ -7,30 +7,22 @@ class HuutopussiService:
     """ Luokka, joka vastaa sovelluslogiikasta."""
 
     def __init__(self):
-        #self._pack = []
         self.hand1 = []
         self.hand2 = []
         self.bid_cards = []
         self._bid_win_hand = None
         self.played = []
-        self.suits = ["\u2663", "\u2665", "\u2666", "\u2660"]
-        #self.bag1 = []
-        #self.bag2 = []
-        self.compare = CompareService()
-        #self.trump = False
-        #self.rank_order = {"6":1, "7":2, "8":3, "9":4, "J":5, "Q":6, "K":7, "10":8, "A":9}
-        self.count = CountService()
-        #self.turn = 1
         self.bid = None
         self.bid2 = None
+        self.suits = ["\u2663", "\u2665", "\u2666", "\u2660"]
+        self.compare = CompareService()
+        self.count = CountService()
         self.huutopussi_repository = huutopussi_repository
         self.id = 0
 
     def create_pack(self):
-        """Alustaa korttipakan luomalla jokaisen pelissä olevan kortin
-        Args:
-            ranks: Korttien arvojärjestys
-        """
+        """Alustaa korttipakan luomalla jokaisen pelissä olevan kortin"""
+
         pack = []
         ranks = ["6", "7", "8", "9", "J", "Q", "K", "10", "A"]
         for i in self.suits:
@@ -40,7 +32,11 @@ class HuutopussiService:
 
     def deal_cards(self, pack):
         """Jakaa kortit kahdelle kädelle, ja huutopakkaan.
+        
+        Args:
+            pack: Korttipakka, josta jaetaan kortit.
         """
+
         random.shuffle(pack)
         self.hand1 = pack[:13]
         self.hand2 = pack[13:26]
@@ -48,10 +44,14 @@ class HuutopussiService:
         self.compare.hand1 = self.hand1
         self.compare.hand2 = self.hand2
 
-    def bid_save(self, bid, lap):  # TODO, tallentaa korkeimman tarjouksen
-        """Tallentaa korkeimman tarjouksen
-            Ensimmäisellä kierroksella pelaajalle tallennetaan huuto
-            Toisella kierroksella tallennetaan samalle pelaajalle korotus
+    def bid_save(self, bid, lap):
+        """Tallentaa korkeimman tarjouksen.
+        Ensimmäisellä kierroksella pelaajalle tallennetaan huuto.
+        Toisella kierroksella tallennetaan samalle pelaajalle korotus.
+
+        Args:
+            bid: Huuto tai korotus on arvo, jonka pelaaja syöttää.
+            lap: Kierros, joka kertoo onko kysessä huuto vai korotus.
         """
         if lap == 2:
             self.bid = int(bid)
@@ -60,26 +60,35 @@ class HuutopussiService:
             self.bid2 = int(bid)
             self.id = self.huutopussi_repository.add_bid(self.bid, self.bid2)
 
-    def bid_win(self, hand, lap): # lisää tarjouskierroksen voittajalle kortit
+    def bid_win(self, hand, lap):
         """Lisää tarjouksen voittajalle huutopakan kortit,
         jos huuto valmis eli kierros 2.
 
+        Args:
+            hand: Kertoo, kumpi pelaaja voitti huudon.
+            lap: Argumentti, joka varmistaa, että huuto on oikea
+        
+        Returns:
+            False, jos syöte on muuta kuin 1 tai 2, muutoin True.
         """
-        if hand != 1 or hand != 2:
-            print("Virhe: Ilmoita pelaaja: 1 tai 2") #exception tähän
+        if hand != "1" and hand != "2":
+            return False
 
         if lap == 2:
             if hand == "1":
                 self._bid_win_hand = 1
-                #self.turn = 1
+                self.compare.turn = 1
                 for card in self.bid_cards:
                     self.hand1.append(card)
+            
 
             elif hand == "2":
                 self._bid_win_hand = 2
-                #self.turn = 2
+                self.compare.turn = 2
                 for card in self.bid_cards:
                     self.hand2.append(card)
+        
+        return True
 
     def play_card(self, card, hand):
         """Tarkistaa pelatun kortin.
@@ -92,6 +101,7 @@ class HuutopussiService:
         
         Returns:
             Pelatut kortit, jos liikaa kortteja palauttaa "Laita kortti pois ensin!"
+            Jos kaikki kortit pelattu, palauttaa "Peli loppui!"
         """
 
         if len(self.hand1) > 13:
@@ -110,35 +120,40 @@ class HuutopussiService:
             self.compare.played = self.played
             result = self.compare.start_compare(card, hand)
             self.played = []
-            #print(result)
             if result[0]is True:
-                print("menee is true")
                 self.count.last_trick(result[1])
                 self.count.count_cards(self.compare.bag1, self.compare.bag2)
+                self.compare.bag1 = []
+                self.compare.bag2 = []
                 self.check_bid()
                 self.huutopussi_repository.add_points(
                     self.count.game_points1, self.count.game_points2, self.id)
                 return "Peli loppui"
-            #result = self.start_compare(card, hand)
             return result
 
         return self.played
 
 
     def check_rules(self, card2, hand):
+        """Tarkistaa maapakon eli onko pelattu samaa maata, jos sitä on kädessä.
+
+        Args:
+            card2: Jälkimmäiseksi pelattu kortti
+            hand: Jälkimmäisen kortin pelaaja, 1 tai 2
+
+        Returns:
+            True, jos kortit on pelattu oikein, muutoin False.
+        """
 
         card1 = self.played[0][0]
-        #print(card2[1], card1[1])
         if card2[1] != card1[1]:
-            if hand == 1: #pelaaja1 laittanut toisen kortin
-                for card in self.hand1: # olisiko toisella pelaajalla ollut samaa maata
+            if hand == 1:
+                for card in self.hand1:
                     if card[1] == card1[1] and card != card2:
                         return False
                 return True
 
-            # hand == 2: #pelaaja2 laittanut toisen kortin
-
-            for card in self.hand2: # olisiko toisella pelaajalla ollut samaa maata
+            for card in self.hand2:
                 if card[1] == card1[1] and card != card2:
                     return False
             return True
@@ -146,16 +161,20 @@ class HuutopussiService:
         return True
 
     def check_bid(self):
+        """Tarkastaa, saiko tarjouskierroksen voittanut,
+        sen verran pisteitä, kun oli tarjonnut.
+        Mikäli on, hän saa huutamansa pistemäärän, muutoin miinusta sen verran.
+        """
         if self._bid_win_hand == 1:
-            if self.count.points1 > self.bid:
-                self.count.game_points1 += self.bid
+            if self.count.points1 > self.bid2:
+                self.count.game_points1 += self.bid2
             else:
-                self.count.points1 -= self.bid
+                self.count.points1 -= self.bid2
             self.count.no_bid_player(2)
 
         else:
-            if self.count.points2 > self.bid:
-                self.count.game_points2 += self.bid
+            if self.count.points2 > self.bid2:
+                self.count.game_points2 += self.bid2
             else:
-                self.count.game_points2 -= self.bid
+                self.count.game_points2 -= self.bid2
             self.count.no_bid_player(1)

@@ -129,7 +129,7 @@ class UI:
 
 
     def refresh_click(self, binst):
-        
+        self.turn.config(text=f"Pelaajan {self._game.compare.turn} vuoro")
         column = 17
         row = 3
         if self._game._bid_win_hand == 2:
@@ -145,7 +145,7 @@ class UI:
         binst.destroy()
         
     def trumps(self):
-        self.turn.config(text=f"Pelaajan {self._game.compare.turn} vuoro")
+        
         trump_label = ttk.Label(
             master=self._root, text="Tee valtti:")
         trump_label.grid(row=6, column=4)

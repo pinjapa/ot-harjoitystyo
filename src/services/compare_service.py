@@ -13,7 +13,7 @@ class CompareService:
         self.turn = 1
 
 
-    def start_compare(self, card, hand):
+    def start_compare(self):
         card1 = self.played[0]
         card2 = self.played[1]
         if self.trump:
@@ -22,12 +22,12 @@ class CompareService:
             end = self.compare_suits(card1, card2)
         result = (card1, card2)
 
-        if hand == 1:
-            self.hand1.remove(card)
-            self.hand2.remove(self.played[0][0])
-        else:
-            self.hand2.remove(card)
+        if self.played[0][1] == 1:
             self.hand1.remove(self.played[0][0])
+            self.hand2.remove(self.played[1][0])
+        else:
+            self.hand2.remove(self.played[0][0])
+            self.hand1.remove(self.played[1][0])
 
         if end[0] is True:
             return (end[0], end[1])
@@ -53,19 +53,22 @@ class CompareService:
             card1: Kahdesta kortista ensin pelattu, ja kumpi pelaaja
             card2: Toiseksi pelattu kortti, ja sen pelaaja
         """
-        if card1[0][1] != self.trump:
+        if self.trump not in (card1[0][1], card2[0][1]):
             return self.compare_suits(card1, card2)
 
+        if card1[0][1] == self.trump:
+            return self.compare_suits(card1, card2)
 
-        if card2[0][1] != self.trump:
-            return self.tricks(card1[1])
+        if card2[0][1] == self.trump: #toinen kortti ei ole valtti
+            return self.tricks(card2[1])
+
         return self.compare_value(card1, card2)
 
     def compare_value(self, card1, card2):
         """ Vertailee, kumpi korteista on suurempi.
 
         Args:
-            card1: Kahdesta kortista ensin pelattu, ja kumpi pelaaja
+            card1: Kahdesta kortista ensin pelattu, ja sen pelaaja
             card2: Toiseksi pelattu kortti, ja sen pelaaja
         """
         if self.rank_order[card1[0][0]] > self.rank_order[card2[0][0]]:
@@ -99,4 +102,3 @@ class CompareService:
             return (False, None)
 
         return (False, None)
-        

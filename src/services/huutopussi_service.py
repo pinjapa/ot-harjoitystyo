@@ -71,23 +71,22 @@ class HuutopussiService:
         Returns:
             False, jos syöte on muuta kuin 1 tai 2, muutoin True.
         """
-        if hand != "1" and hand != "2":
+        if hand not in ("1", "2"):
             return False
 
-        if lap == 2:
+        if lap == 1:
             if hand == "1":
                 self._bid_win_hand = 1
                 self.compare.turn = 1
                 for card in self.bid_cards:
                     self.hand1.append(card)
-            
 
-            elif hand == "2":
+            else:
                 self._bid_win_hand = 2
                 self.compare.turn = 2
                 for card in self.bid_cards:
                     self.hand2.append(card)
-        
+
         return True
 
     def play_card(self, card, hand):
@@ -118,7 +117,7 @@ class HuutopussiService:
 
         if len(self.played) == 2:
             self.compare.played = self.played
-            result = self.compare.start_compare(card, hand)
+            result = self.compare.start_compare()
             self.played = []
             if result[0]is True:
                 self.count.last_trick(result[1])
@@ -132,7 +131,6 @@ class HuutopussiService:
             return result
 
         return self.played
-
 
     def check_rules(self, card2, hand):
         """Tarkistaa maapakon eli onko pelattu samaa maata, jos sitä on kädessä.

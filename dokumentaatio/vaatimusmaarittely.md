@@ -23,5 +23,7 @@ Peliä pystyy pelaamaan
 
 - Pelaajat eivät näe toistensa kortteja
 - Pelin pistetaulukko   - tehty
-- Kortteja ei pysty pelata sääntöjen vastaisesti 
+- Kortteja ei pysty pelata sääntöjen vastaisesti
+    - Maapakko - tehty
+    - Samasta kädestä pelaaminen yhteen tikkiin
 - Kolmin tai nelinpeli

@@ -1,5 +1,5 @@
 # Testausdokumentti
-Ohjelmalle on suoritettu automatisoituja testejä Unittest -kirjastolla, näiden lisäksi ohjelmaa on testattu myös manuaalisesti. Nämä testit kattavat sovelluslogiikan tärkeimmät osat; sovelluslogiika eli pelin kulun ja pisteenlaskennan.
+Ohjelmalle on suoritettu automatisoituja testejä Unittest -kirjastolla, näiden lisäksi ohjelmaa on testattu myös manuaalisesti. Nämä testit kattavat sovelluslogiikan tärkeimmät osat; pelin kulun ja pisteenlaskennan.
 
 ## Yksikkö- ja integraatio testaus
 

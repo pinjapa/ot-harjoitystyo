@@ -22,7 +22,7 @@ class HuutopussiRepository:
 
         cursor.execute(
             "INSERT INTO Game (bid, raise, player1, player2) values (?, ?, ?, ?)",
-            (bid, bid2, None, None)
+            (bid, bid2, 0, 0)
         )
 
         self._connection.commit()

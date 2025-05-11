@@ -59,7 +59,7 @@ class CompareService:
         if card1[0][1] == self.trump:
             return self.compare_suits(card1, card2)
 
-        if card2[0][1] == self.trump: #toinen kortti ei ole valtti
+        if card2[0][1] == self.trump:
             return self.tricks(card2[1])
 
         return self.compare_value(card1, card2)

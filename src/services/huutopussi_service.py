@@ -122,15 +122,22 @@ class HuutopussiService:
             if result[0]is True:
                 self.count.last_trick(result[1])
                 self.count.count_cards(self.compare.bag1, self.compare.bag2)
-                self.compare.bag1 = []
-                self.compare.bag2 = []
                 self.check_bid()
                 self.huutopussi_repository.add_points(
                     self.count.game_points1, self.count.game_points2, self.id)
+                self._reset()
                 return "Peli loppui"
             return result
 
         return self.played
+
+    def _reset(self):
+        """Nollaa uuden kierroksen alussa tarvittavat arvot"""
+        self.compare.bag1 = []
+        self.compare.bag2 = []
+        self.compare.trump = False
+        self.count.points1 = 0
+        self.count.points2 = 0
 
     def check_rules(self, card2, hand):
         """Tarkistaa maapakon eli onko pelattu samaa maata, jos sitä on kädessä.

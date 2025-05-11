@@ -1,11 +1,11 @@
 # Ohjelmistotekniikka, harjoitustyö
 Teen _huutopussi_-korttipelistä **digi**version, kahdelle pelaajalle. Huutopussi on nk. tikkipeli, jossa pelaajat aluksi tarjoavat eli "huutavat" pisteistä ,jotka he luulevat korteillansa saavan. Tarjousvaiheen jälkeen pelataan kierros, jonka jälkeen lasketaan pisteet, ja tarkistetaan saiko tarjousvaiheen voittanut huutonsa verran. HUOM. Oletuksena on, että pelaaja entuudestaan tuntee pelin. Lisää pelin kulkusta ja säännöistä löytyy nettihaulla.
 
-- [Työaikakirjanpito](/dokumentaatio/tuntikirjanpito.md)
+- [Tuntikirjanpito](/dokumentaatio/tuntikirjanpito.md)
 - [Vaatimusmäärittely](/dokumentaatio/vaatimusmaarittely.md)
 - [Ohjelman alustava rakenne](/dokumentaatio/arkkitehtuuri.md)
 - [Changelog](/dokumentaatio/changelog.md)
-- [Release 1 viikko 5](https://github.com/pinjapa/ot-harjoitystyo/releases/tag/viikko5)
+- [Loppupalautuksen release](https://github.com/pinjapa/ot-harjoitystyo/releases/tag/viikko7)
 
 ## Asennus ohjeet
 

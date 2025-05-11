@@ -37,23 +37,7 @@ Pisteiden laskenta - Pelin lopussa lasketaan pisteet ja tarkistetaan, saiko tarj
 
 Tikin pelaaminen - Pelaajat pelaavat kortteja vuorotellen, tikin voittaja määräytyy pelin sääntöjen mukaan. Kortin pelaaminen tapahtuu painamalla haluttua korttia.
 
-
-sequenceDiagram
-    participant Käyttöliittymä
-    participant Sovelluslogiikka
-    participant Pelitilanne
-    participant Korttien vertailu
-
-    Käyttöliittymä->>Sovelluslogiikka: Valitse kortti peliin
-    Sovelluslogiikka-->>Käyttöliittymä: Return pelattu kortti
-    Käyttöliittymä->>Sovelluslogiikka: play_card(pelattu kortti)
-    Sovelluslogiikka->>Korttien vertailu: play_card(pelattu kortti)
-        Sovelluslogiikka-->>Käyttöliittymä: Return pelattu kortti
-    Sovelluslogiikka->>Korttien vertailu: compare_cards(pelattu kortti)
-    Korttien vertailu-->>Sovelluslogiikka: Return voittaja kortti/pelaaja
-    Sovelluslogiikka->>Pelitilanne: päivitä käännön voitaja(käännön voittaja)
-    Pelitilanne-->>Sovelluslogiikka: Vahvista päivitys
-    Sovelluslogiikka-->>Käyttöliittymä: Päivitä käännön voitaja
+![](./kuvat/sequencediagram.png) 
 
 ### Muut toiminnallisuudet
 

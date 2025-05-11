@@ -19,3 +19,9 @@
 
 - Korttien vertailu
 - Valtin tekeminen muttaa korttien vertailua
+
+## Viikko 7
+
+- CountService-luokka
+- CompareService, joka vastaa korttien vertailusta
+- Tietokanta lisätty

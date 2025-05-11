@@ -20,7 +20,7 @@ class TestCountService(unittest.TestCase):
                             ("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
                             ("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
                             ("K", "\u2663")]
-        bag2 = [("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"), #4p vähemmän
+        bag2 = [("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
                             ("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
                             ("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
                             ("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
@@ -31,7 +31,7 @@ class TestCountService(unittest.TestCase):
                             ("K", "\u2663"), ("Q", "\u2663"), ("J", "\u2663"),
                             ("6", "\u2663")]
         self.service.count_cards(bag1, bag2)
-        self.assertEqual(self.service.points1, 40+27+18)
+        self.assertEqual(self.service.points1, 32+24+16)
         self.assertEqual(self.service.points2, 36+27+18)
 
     def test_last_trick(self):

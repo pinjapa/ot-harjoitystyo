@@ -37,7 +37,7 @@ Pisteiden laskenta - Pelin lopussa lasketaan pisteet ja tarkistetaan, saiko tarj
 
 Tikin pelaaminen - Pelaajat pelaavat kortteja vuorotellen, tikin voittaja määräytyy pelin sääntöjen mukaan. Kortin pelaaminen tapahtuu painamalla haluttua korttia.
 
-![](./kuvat/sequencediagram.png) 
+![](./kuvat/sequencediagram.png)  
 
 ### Muut toiminnallisuudet
 

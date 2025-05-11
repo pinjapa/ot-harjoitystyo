@@ -16,7 +16,7 @@
 | 24.4. | 1 | Korttien vertailu valtilla |
 |  | 1 | Korttien lisääminen huudon voittajalle |
 | 25.4. | 2 | Bugien ja pylint virheiden korjailua |
-| 29.4. | 1 | Testejä |
+| 29.4. | 1 | Testaus |
 |  | 1 | Docstring ja dokumentaatio |
 | 5.5. | 2 | Pisteenlaskun toteutus |
 |  | 1,5 | Käyttöliittymän parantelu |
@@ -26,5 +26,15 @@
 | 7.5. | 2 | Tietokanta |
 |  | 2 | Pelitilanne näkyviin |
 |  | 2 | CompareService-luokka |
-| 8.5. | |
-| summa | 47 |  |
+| 8.5. | 1 | Uusi kierros/peli alkaa uudelleen |
+|  | 1 | Käyttöliittymäntestaaminen |
+|  | 2 | Dokumentaatio |
+|  | 1 | Docstring |
+|  | 1 | Virhekorjaus, pylint virheet |
+|  | 1 | Testaus
+| 9.5. | 1 | Testaus |
+|  | 2 | Virhekorjaus |
+|  | 1 | Testaus | 
+| 10.5. | 1| Dokumentaatio |
+| 11.5. | 2 | Dokumentaatio |
+| summa | 60 |  |
